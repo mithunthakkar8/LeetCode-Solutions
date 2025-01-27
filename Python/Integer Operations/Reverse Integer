@@ -8,26 +8,49 @@ class Solution:
             int: The reversed integer. If the reversed integer overflows 
                  32-bit signed integer range, returns 0.
         """
+        # Initialize a flag to track if the input number is negative
         flag = 0
-        if x<0:
-            x = x*-1
+
+        # Check if the input is negative
+        if x < 0:
+            # Convert the number to positive for processing
+            x = x * -1
+            # Mark the flag to remember the number was negative
             flag = 1
-        first_digit = x%10
+
+        # Extract the last digit of the number and store it in a list
+        first_digit = x % 10
         digits = [first_digit]
+
+        # Initialize a variable to track the positional value of digits
         power = 1
-        while x//10>0:
+
+        # Extract digits until the number becomes a single-digit number
+        while x // 10 > 0:
+            # Increment the positional value by a factor of 10
             power *= 10
-            x = x//10
-            digits.append(x%10)
-        x=0
+            # Remove the last digit from the number
+            x = x // 10
+            # Append the extracted digit to the list
+            digits.append(x % 10)
+
+        # Reinitialize the number to reconstruct the reversed number
+        x = 0
+
+        # Rebuild the number from the digits in reverse order
         for digit in digits:
-            x = x+digit*power
-            power = power/10
+            # Add the digit at its correct positional value
+            x = x + digit * power
+            # Reduce the positional value by a factor of 10
+            power = power / 10
 
+        # If the original number was negative, make the result negative
         if flag == 1:
-            x = x*-1
+            x = x * -1
 
-        if -pow(2,31) > x or x>pow(2,31):
+        # Check for overflow: return 0 if the reversed number exceeds 32-bit signed integer range
+        if -pow(2, 31) > x or x > pow(2, 31):
             return 0
-        else: 
-            return int(x)
+
+        # Return the reversed integer
+        return int(x)
