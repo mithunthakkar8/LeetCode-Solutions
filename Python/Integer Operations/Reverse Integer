@@ -1,0 +1,33 @@
+class Solution:
+    def reverse(self, x: int) -> int:
+        """
+        Reverses the digits of the given integer.
+        Args:
+            x (int): The integer to be reversed.
+        Returns:
+            int: The reversed integer. If the reversed integer overflows 
+                 32-bit signed integer range, returns 0.
+        """
+        flag = 0
+        if x<0:
+            x = x*-1
+            flag = 1
+        first_digit = x%10
+        digits = [first_digit]
+        power = 1
+        while x//10>0:
+            power *= 10
+            x = x//10
+            digits.append(x%10)
+        x=0
+        for digit in digits:
+            x = x+digit*power
+            power = power/10
+
+        if flag == 1:
+            x = x*-1
+
+        if -pow(2,31) > x or x>pow(2,31):
+            return 0
+        else: 
+            return int(x)
