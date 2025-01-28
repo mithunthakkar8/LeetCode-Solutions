@@ -1,0 +1,30 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        if x<0:
+            return False
+        
+        original_x = x
+
+        digits = []
+        # Extract digits until the number becomes a single-digit number
+        while x // 10 > 0:
+            # Append the extracted digit to the list
+            digits.append(x % 10)
+            # Remove the last digit from the number
+            x = x // 10
+        
+        # Append the extracted digit to the list
+        digits.append(x % 10)
+        print(digits)
+            
+
+        # Reinitialize the number to reconstruct the reversed number
+        x = 0
+        for digit in digits:
+            x = x * 10 + digit
+        
+
+        if original_x == x:
+            return True
+        else:
+            return False
