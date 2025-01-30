@@ -1,0 +1,54 @@
+class Solution:
+    """
+    A class to convert a Roman numeral string to an integer.
+    """
+    
+    def romanToInt(self, s: str) -> int:
+        """
+        Converts a Roman numeral string to an integer.
+
+        Args:
+            s (str): A string representing a Roman numeral.
+
+        Returns:
+            int: The integer representation of the given Roman numeral.
+        """
+        Roman_Numerals_Mapping = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 
+                                  'D': 500, 'M': 1000}
+        Integer_ = 0
+        iterable = enumerate(s)
+        
+        for i, char in iterable:
+            # Ensure index is within bounds for checking next character
+            if i <= len(s) - 2:
+                # Handle cases where subtraction is needed (e.g., IV = 4, IX = 9)
+                if char == 'I' and (s[i+1] == 'V' or s[i+1] == 'X'):
+                    if s[i+1] == 'V':
+                        Integer_ += 4
+                    elif s[i+1] == 'X':
+                        Integer_ += 9
+                    next(iterable, None)  # Skip next character
+                
+                # Handle cases for X (e.g., XL = 40, XC = 90)
+                elif char == 'X' and (s[i+1] == 'L' or s[i+1] == 'C'):
+                    if s[i+1] == 'L':
+                        Integer_ += 40
+                    elif s[i+1] == 'C':
+                        Integer_ += 90
+                    next(iterable, None)  # Skip next character
+                
+                # Handle cases for C (e.g., CD = 400, CM = 900)
+                elif char == 'C' and (s[i+1] == 'D' or s[i+1] == 'M'):
+                    if s[i+1] == 'D':
+                        Integer_ += 400
+                    elif s[i+1] == 'M':
+                        Integer_ += 900
+                    next(iterable, None)  # Skip next character
+                
+                # Standard case: add corresponding value
+                else: 
+                    Integer_ += Roman_Numerals_Mapping[char]
+            else: 
+                Integer_ += Roman_Numerals_Mapping[char]
+        
+        return Integer_
