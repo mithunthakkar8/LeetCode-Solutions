@@ -1,0 +1,14 @@
+-- Write your PostgreSQL query statement below
+with product_wise_rows as (
+select product_id
+    , year
+    , quantity
+    , price
+    , rank() over (partition by product_id order by year) ranker
+from sales)
+select product_id
+    , year first_year
+    , quantity
+    , price
+from product_wise_rows
+where ranker = 1
