@@ -15,21 +15,10 @@ class Solution:
         # Position counter to track the index of each node
         index = 0  
         
-        # Store the first occurrence of a cycle
-        pos = -1   
-        
-        # Flag to check if cycle position is set
-        is_set = False  
-
         # Traverse the linked list
         while current:
             # If the node is already in the dictionary, a cycle is detected
-            if current in node_store:  
-                # Get the position where the cycle starts
-                if not is_set:
-                    pos = node_store[current]  
-                    is_set = True  
-                
+            if current in node_store:
                 return True  # Cycle found
 
             # Store the current node reference and its position
@@ -43,3 +32,4 @@ class Solution:
 
         # If traversal completes without revisiting a node, no cycle exists
         return False  
+        
