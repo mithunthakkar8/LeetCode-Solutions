@@ -1,0 +1,16 @@
+-- Write your PostgreSQL query statement below
+with product_sales as (
+select p.product_id
+    , p.product_name
+    , sale_date
+from product p
+join sales s
+on p.product_id = s.product_id)
+select product_id
+    , product_name
+from product_sales
+except
+select product_id
+    , product_name
+from product_sales
+where sale_date not between '2019-01-01' and '2019-03-31'
